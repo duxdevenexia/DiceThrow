@@ -16,6 +16,9 @@ class DieFragment : Fragment() {
 
     var dieSides: Int = 6
 
+    private var currentDieNumber = 0
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -37,10 +40,27 @@ class DieFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        savedInstanceState?.run {
+            currentDieNumber = getInt(dieTextView.text.toString(), 0)
+        }
+
+        if (currentDieNumber == 0) {
+            throwDie()
+            view.setOnClickListener{
+                throwDie()
+            }
+        }
+        else {
+
+        }
+        /*
         throwDie()
         view.setOnClickListener{
             throwDie()
         }
+
+         */
     }
 
     fun throwDie() {
