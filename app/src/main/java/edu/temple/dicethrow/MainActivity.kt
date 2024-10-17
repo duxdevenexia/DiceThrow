@@ -16,30 +16,54 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        /*
-        // Find the DieFragment using the FragmentContainerView
-        dieFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as DieFragment
-
-        // Set up the button to roll the die
-        findViewById<Button>(R.id.rollDiceButton).setOnClickListener {
-            dieFragment.throwDie()
-        }
-
-         */
 
 
+        
         if (savedInstanceState == null) {
+            // call newInstance function of the DieFragment object
             dieFragment = DieFragment.newInstance(6) // 6 sides
+
+            // use transaction to save the state
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainerView, dieFragment)
+                .addToBackStack(null)
+                .setReorderingAllowed(true)
                 .commit()
         } else {
             dieFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as DieFragment
         }
 
+
         findViewById<Button>(R.id.rollDiceButton).setOnClickListener {
             dieFragment.throwDie()
         }
+
+
+        /*
+        if (savedInstanceState == null) {
+            // call newInstance function of the DieFragment object
+            dieFragment = DieFragment.newInstance(6) // 6 sides
+
+            // use transaction to save the state
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView, dieFragment)
+                .addToBackStack(null)
+                .setReorderingAllowed(true)
+                .commit()
+        } else {
+            dieFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as DieFragment
+        }
+
+
+        findViewById<Button>(R.id.rollDiceButton).setOnClickListener {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragmentContainerView, DieFragment.newInstance(6))
+                .addToBackStack(null)
+                .setReorderingAllowed(true)
+                .commit()
+        }
+        */
 
 
     }
