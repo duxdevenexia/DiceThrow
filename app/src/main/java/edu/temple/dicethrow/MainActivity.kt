@@ -16,13 +16,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        /*
-        if(supportFragmentManager.findFragmentById(R.id.fragmentContainerView)) (is DieFragment)
-            supportFragmentManager.beginTransaction()
-                .add(R.id.fragmentContainerView, DieFragment.newInstance())
-
-         */
-
         if (savedInstanceState == null) {
             // call newInstance function of the DieFragment object
             dieFragment = DieFragment.newInstance(6) // 6 sides
@@ -40,9 +33,10 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.rollDiceButton).setOnClickListener {
             dieFragment.throwDie()
+
         }
 
-
+        
         /*
         if (savedInstanceState == null) {
             // call newInstance function of the DieFragment object
@@ -54,6 +48,7 @@ class MainActivity : AppCompatActivity() {
                 .addToBackStack(null)
                 .setReorderingAllowed(true)
                 .commit()
+
         } else {
             dieFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as DieFragment
         }
