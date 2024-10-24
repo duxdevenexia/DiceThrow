@@ -15,6 +15,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        /*
+        *
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView, BlankFragment())
+                .commit()
+        }
+        * */
+
 
         if (savedInstanceState == null) {
             // call newInstance function of the DieFragment object

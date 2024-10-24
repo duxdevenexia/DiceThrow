@@ -6,9 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import kotlin.random.Random
 
 class DieFragment : Fragment() {
+
+    private val dieViewModel: DieViewModel by lazy {
+        ViewModelProvider(requireActivity())[DieViewModel:: class.java]
+    }
 
     val DIESIDE = "sidenumber"
 
@@ -23,6 +28,8 @@ class DieFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //dieViewModel = ViewModelProvider(requireActivity()) [DieViewModel:: class.java]
         arguments?.let {
             it.getInt(DIESIDE).run {
                 dieSides = this
@@ -43,23 +50,21 @@ class DieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*
-        savedInstanceState?.run {
-            currentDieNumber = getInt(dieTextView.text.toString(), 0)
+
+
+        dieViewModel.getDieRoll().observe(viewLifecycleOwner) {
+            dieTextView.text = it.toString()
         }
 
-        if (currentDieNumber == 0) {
+        if (dieViewModel.getDieRoll().value == 0 ) {
             throwDie()
-            view.setOnClickListener{
-                throwDie()
-            }
-        }
-        else {
-
         }
 
-         */
+        view.setOnClickListener {
+            throwDie()
+        }
 
+        /*
         savedInstanceState?.let {
             currentDieNumber = it.getInt(KEY, 0)
             dieTextView.text = currentDieNumber.toString()
@@ -69,17 +74,13 @@ class DieFragment : Fragment() {
             throwDie()
         }
 
-        /*
-        savedInstanceState?.run {
-            rollValue.
-        }
-
          */
+
     }
 
 
     fun throwDie() {
-        currentDieNumber = Random.nextInt(1, dieSides + 1)
+        dieViewModel.setDieRoll(Random.nextInt(1, dieSides + 1))
         dieTextView.text = currentDieNumber.toString()
     }
 
